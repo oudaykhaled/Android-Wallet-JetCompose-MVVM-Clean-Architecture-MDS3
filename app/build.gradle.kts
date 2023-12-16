@@ -6,11 +6,50 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
     alias(libs.plugins.secrets)
+    id("jacoco")
+}
+
+jacoco {
+    toolVersion = "0.8.7" // Specify JaCoCo version, update if needed
 }
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     namespace = "com.ouday.cryptowalletsample"
+
+
+    testOptions {
+        unitTests.all {
+            extensions.findByType<JacocoTaskExtension>()?.isIncludeNoLocationClasses = true
+        }
+    }
+
+    packaging {
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/LICENSE-notice.md")
+    }
+
+    buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+
+        getByName("release") {
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("debug")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro")
+        }
+
+        create("benchmark") {
+            initWith(getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks.add("release")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-benchmark-rules.pro")
+            isDebuggable = false
+        }
+    }
 
     defaultConfig {
         applicationId = "com.ouday.cryptowalletsample"
@@ -50,14 +89,6 @@ android {
                 "proguard-rules.pro")
         }
 
-        create("benchmark") {
-            initWith(getByName("release"))
-            signingConfig = signingConfigs.getByName("debug")
-            matchingFallbacks.add("release")
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-benchmark-rules.pro")
-            isDebuggable = false
-        }
     }
 
     compileOptions {
@@ -82,6 +113,7 @@ android {
         excludes += "/META-INF/AL2.0"
         excludes += "/META-INF/LGPL2.1"
     }
+
 }
 
 dependencies {
@@ -129,8 +161,12 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.inline)
+
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.core.testing)
+
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.40.5")
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
@@ -139,6 +175,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.core.testing)
+    androidTestImplementation(libs.mockito.core)
+    androidTestImplementation(libs.mockito.inline)
+    androidTestImplementation(libs.mockito.kotlin)
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.espresso.core)
@@ -150,6 +190,23 @@ dependencies {
     androidTestImplementation(libs.hilt.android.testing)
     coreLibraryDesugaring(libs.core.jdk.desugaring)
     kaptAndroidTest(libs.hilt.compiler)
+}
+
+tasks.register("jacocoTestReport", JacocoReport::class) {
+    dependsOn("testDebugUnitTest", "connectedDebugAndroidTest")
+
+    val debugTree = fileTree(mapOf("dir" to "${buildDir}/outputs/code_coverage/debugAndroidTest/connected/", "includes" to listOf("*.ec")))
+    val mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom(files(mainSrc))
+    classDirectories.setFrom(files("${buildDir}/intermediates/javac/debug/classes", "${buildDir}/tmp/kotlin-classes/debug"))
+    executionData.setFrom(files("${buildDir}/jacoco/testDebugUnitTest.exec", debugTree))
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
+    }
 }
 
 secrets {

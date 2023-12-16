@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +32,6 @@ import com.ouday.cryptowalletsample.common.FlowState
 import com.ouday.cryptowalletsample.common.HandleFlowState
 import com.ouday.cryptowalletsample.creditcards.data.model.CreditCardInfo
 import com.ouday.cryptowalletsample.home.components.BillOptionItem
-import com.ouday.cryptowalletsample.home.components.HomeHeaderComposable
 import com.ouday.cryptowalletsample.home.components.LoanCardComposable
 import com.ouday.cryptowalletsample.home.ui.viewmodel.HomeViewModel
 import com.ouday.cryptowalletsample.ui.theme.Size
@@ -42,7 +40,7 @@ import com.ouday.cryptowalletsample.ui.theme.craneColors
 import com.ouday.cryptowalletsample.ui.theme.craneTypography
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
     Column(modifier = Modifier.fillMaxWidth()) {
         Column(
@@ -51,7 +49,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 .verticalScroll(scrollState)
         ) {
 
-            CreditCards()
+            CreditCards(viewModel = viewModel)
             Spacer(modifier = Modifier.height(Space.spaceMedium))
             Text(
                 text = "Bill Payments",
@@ -59,7 +57,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(start = Space.spaceLarge)
             )
             Spacer(modifier = Modifier.height(Space.spaceSmall))
-            BillOptionsComposable()
+            BillOptionsComposable(viewModel = viewModel)
             Spacer(modifier = Modifier.height(Space.spaceSmall))
             Text(
                 text = "Active Loans",
@@ -67,14 +65,13 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(start = Space.spaceLarge)
             )
             Spacer(modifier = Modifier.height(Space.spaceSmall))
-            Subscriptions()
+            Subscriptions(viewModel = viewModel)
         }
     }
 }
 
 @Composable
-fun Subscriptions() {
-    val viewModel: HomeViewModel = hiltViewModel()
+fun Subscriptions(viewModel: HomeViewModel = hiltViewModel()) {
     val subscriptionState by viewModel.subscriptions.collectAsState(initial = FlowState.Loading)
     LaunchedEffect(Unit) {
         viewModel.triggerFetchSubscriptions()
@@ -113,8 +110,7 @@ fun Test() {
 }
 
 @Composable
-fun CreditCards() {
-    val viewModel: HomeViewModel = hiltViewModel()
+fun CreditCards(viewModel: HomeViewModel = hiltViewModel()) {
     val creditCardState by viewModel.creditCards.collectAsState(initial = FlowState.Loading)
 
     LaunchedEffect(Unit) {
@@ -133,8 +129,7 @@ fun CreditCards() {
 }
 
 @Composable
-fun BillOptionsComposable(modifier: Modifier = Modifier) {
-    val viewModel: HomeViewModel = hiltViewModel()
+fun BillOptionsComposable(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()) {
     val bills by viewModel.bills.collectAsState(initial = FlowState.Loading)
     LaunchedEffect(Unit) {
         viewModel.triggerFetchBills()

@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.ouday.cryptowalletsample.ui.theme.craneColors
@@ -66,7 +67,8 @@ fun ShimmerEffect() {
         ), label = ""
     )
 
-    ShimmerItem(brush = Brush.linearGradient(
+    ShimmerItem(
+        brush = Brush.linearGradient(
         colors = shimmerColors,
         start = Offset.Zero,  // Fixed start point
         end = Offset(x = translateAnim, y = 0f)  // Animated end point
@@ -80,6 +82,7 @@ fun ShimmerItem(brush: Brush) {
         // Adjust these placeholders to match your content layout
         Spacer(modifier = Modifier
             .fillMaxWidth()
+            .testTag("LoadingIndicator")
             .height(250.dp)
             .background(brush))
         Spacer(modifier = Modifier.height(8.dp))

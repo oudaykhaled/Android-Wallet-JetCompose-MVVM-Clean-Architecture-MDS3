@@ -36,10 +36,10 @@ import com.ouday.cryptowalletsample.ui.theme.Space
 import com.ouday.cryptowalletsample.ui.theme.craneColors
 import com.ouday.cryptowalletsample.ui.theme.craneTypography
 import com.ouday.cryptowalletsample.ui.theme.success
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
-fun BillsScreen(modifier: Modifier = Modifier) {
-    val viewModel: BillViewModel = hiltViewModel()
+fun BillsScreen(modifier: Modifier = Modifier, viewModel: BillViewModel = hiltViewModel()) {
     var selectedBill by remember { mutableStateOf<Bill?>(null) }
     val bills by viewModel.bills.collectAsState(initial = FlowState.Loading)
     LaunchedEffect(Unit) {

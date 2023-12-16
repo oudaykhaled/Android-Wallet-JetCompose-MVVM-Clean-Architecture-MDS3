@@ -26,8 +26,7 @@ import com.ouday.cryptowalletsample.ui.theme.Space
 import com.ouday.cryptowalletsample.ui.theme.craneColors
 
 @Composable
-fun SubscriptionScreen(modifier: Modifier = Modifier) {
-    val viewModel: SubscriptionViewModel = hiltViewModel()
+fun SubscriptionScreen(modifier: Modifier = Modifier, viewModel: SubscriptionViewModel = hiltViewModel()) {
     val subscriptionState by viewModel.subscriptions.collectAsState(initial = FlowState.Loading)
 
     LaunchedEffect(Unit) {

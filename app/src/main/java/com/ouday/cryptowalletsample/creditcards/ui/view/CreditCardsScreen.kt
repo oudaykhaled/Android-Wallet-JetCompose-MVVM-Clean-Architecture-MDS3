@@ -30,8 +30,7 @@ import com.ouday.cryptowalletsample.ui.theme.Space
 import com.ouday.cryptowalletsample.ui.theme.craneColors
 
 @Composable
-fun CreditCardsScreen(modifier: Modifier = Modifier) {
-    val viewModel: CreditCardViewModel = hiltViewModel()
+fun CreditCardsScreen(modifier: Modifier = Modifier, viewModel: CreditCardViewModel = hiltViewModel()) {
     val creditCardState by viewModel.creditCards.collectAsState(initial = FlowState.Loading)
 
     LaunchedEffect(Unit) {

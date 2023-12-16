@@ -42,7 +42,7 @@ fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier
             )
 
             Text(
-                text = "**** 3854", // Masked number for privacy
+                text = cardInfo.cardNumber, // Masked number for privacy
                 color = Color.White,
                 style = craneTypography.h6, // Use your theme's typography
                 modifier = Modifier.constrainAs(cardNumber) {

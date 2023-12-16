@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BillViewModel @Inject constructor(billUseCase: BillUseCase) : ViewModel() {
-    private val _retryFetchBills = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+class BillViewModel @Inject constructor(val billUseCase: BillUseCase) : ViewModel() {
+    public val _retryFetchBills = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     val bills: Flow<FlowState<List<Bill>>> = _retryFetchBills
         .flatMapLatest { billUseCase.getBills().asFlowState() }
         .stateIn(viewModelScope, SharingStarted.Lazily, FlowState.Loading)
@@ -27,6 +27,4 @@ class BillViewModel @Inject constructor(billUseCase: BillUseCase) : ViewModel() 
             _retryFetchBills.emit(Unit)
         }
     }
-
-
 }

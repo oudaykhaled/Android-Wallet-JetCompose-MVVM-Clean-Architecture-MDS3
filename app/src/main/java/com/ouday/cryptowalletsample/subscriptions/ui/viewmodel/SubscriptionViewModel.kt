@@ -28,6 +28,4 @@ class SubscriptionViewModel @Inject constructor(subscriptionUseCase: Subscriptio
             _retryFetchSubscription.emit(Unit)
         }
     }
-
-
 }
