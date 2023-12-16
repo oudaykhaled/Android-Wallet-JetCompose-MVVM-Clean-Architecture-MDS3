@@ -63,7 +63,7 @@ class BillsScreenTest {
         advanceTimeBy(1000)
 
         composeTestRule.onNodeWithText("Date: 2023-12-01").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Amount: $100.0").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Amount: 100.0").assertIsDisplayed()
 
     }
 
