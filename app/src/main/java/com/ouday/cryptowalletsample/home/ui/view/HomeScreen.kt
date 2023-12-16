@@ -1,32 +1,21 @@
 package com.ouday.cryptowalletsample.home.ui.view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.HorizontalPagerIndicator
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.*
+import com.ouday.cryptowalletsample.R
 import com.ouday.cryptowalletsample.common.FlowState
 import com.ouday.cryptowalletsample.common.HandleFlowState
 import com.ouday.cryptowalletsample.creditcards.data.model.CreditCardInfo
@@ -34,10 +23,7 @@ import com.ouday.cryptowalletsample.home.components.BillOptionItem
 import com.ouday.cryptowalletsample.home.components.CreditCardComposable
 import com.ouday.cryptowalletsample.home.components.LoanCardComposable
 import com.ouday.cryptowalletsample.home.ui.viewmodel.HomeViewModel
-import com.ouday.cryptowalletsample.ui.theme.Size
-import com.ouday.cryptowalletsample.ui.theme.Space
-import com.ouday.cryptowalletsample.ui.theme.Colors
-import com.ouday.cryptowalletsample.ui.theme.Typography
+import com.ouday.cryptowalletsample.ui.theme.*
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()) {
@@ -52,17 +38,19 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
             CreditCards(viewModel = viewModel)
             Spacer(modifier = Modifier.height(Space.spaceMedium))
             Text(
-                text = "Bill Payments",
+                text = stringResource(id = R.string.bill_payments),
                 style = Typography.subtitle1,
-                modifier = Modifier.padding(start = Space.spaceLarge)
+                modifier = Modifier.padding(start = Space.spaceLarge),
+                color = Colors.onSurface
             )
             Spacer(modifier = Modifier.height(Space.spaceSmall))
             BillOptionsComposable(viewModel = viewModel)
             Spacer(modifier = Modifier.height(Space.spaceSmall))
             Text(
-                text = "Active Loans",
+                text = stringResource(id = R.string.active_loans),
                 style = Typography.subtitle1,
-                modifier = Modifier.padding(start = Space.spaceLarge)
+                modifier = Modifier.padding(start = Space.spaceLarge),
+                color = Colors.onSurface
             )
             Spacer(modifier = Modifier.height(Space.spaceSmall))
             Subscriptions(viewModel = viewModel)
@@ -103,7 +91,6 @@ fun Subscriptions(viewModel: HomeViewModel = hiltViewModel()) {
         }
     )
 }
-
 
 @Composable
 fun Test() {

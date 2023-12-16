@@ -1,17 +1,10 @@
 package com.ouday.cryptowalletsample.subscriptions.ui.view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,9 +13,7 @@ import com.ouday.cryptowalletsample.common.HandleFlowState
 import com.ouday.cryptowalletsample.home.components.LoanCardComposable
 import com.ouday.cryptowalletsample.subscriptions.data.model.Subscription
 import com.ouday.cryptowalletsample.subscriptions.ui.viewmodel.SubscriptionViewModel
-import com.ouday.cryptowalletsample.ui.theme.Size
-import com.ouday.cryptowalletsample.ui.theme.Space
-import com.ouday.cryptowalletsample.ui.theme.Colors
+import com.ouday.cryptowalletsample.ui.theme.*
 
 @Composable
 fun SubscriptionScreen(modifier: Modifier = Modifier, viewModel: SubscriptionViewModel = hiltViewModel()) {

@@ -2,26 +2,22 @@ package com.ouday.cryptowalletsample.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstrainedLayoutReference
+import androidx.compose.ui.res.stringResource
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
+import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import com.ouday.cryptowalletsample.R
 import com.ouday.cryptowalletsample.subscriptions.data.model.Subscription
+import com.ouday.cryptowalletsample.ui.theme.*
 
 @Composable
 fun LoanCardComposable(
@@ -38,7 +34,7 @@ fun LoanCardComposable(
 
             CardImageBox(
                 imageResourceId = R.drawable.ic_car,
-                imageContentDescription = content.imageContentDescription,
+                imageContentDescription = stringResource(R.string.image_content_description, content.imageContentDescription),
                 imageBoxRef = imageBox
             )
 
@@ -86,11 +82,10 @@ fun ConstraintLayoutScope.CardImageBox(
     imageContentDescription: String,
     imageBoxRef: ConstrainedLayoutReference
 ) {
-    // Implementation for CardImageBox
     Box(
         modifier = Modifier
-            .size(40.dp)
-            .background(Color.White, RoundedCornerShape(8.dp))
+            .size(Size.sizeLarge)
+            .background(Color.White, RoundedCornerShape(MaterialCornerRadius.radiusSmall))
             .constrainAs(imageBoxRef) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
@@ -100,7 +95,7 @@ fun ConstraintLayoutScope.CardImageBox(
             painter = painterResource(id = imageResourceId),
             contentDescription = imageContentDescription,
             modifier = Modifier
-                .size(30.dp)
+                .size(Size.sizeMedium)
                 .align(Alignment.Center)
         )
     }
@@ -111,10 +106,10 @@ fun ConstraintLayoutScope.CardPriceText(
     priceText: String,
     priceRef: ConstrainedLayoutReference
 ) {
-    // Implementation for CardPriceText
     Text(
         text = priceText,
-        style = MaterialTheme.typography.h6,
+        style = Typography.h6,
+        color = Colors.onSurface,
         modifier = Modifier.constrainAs(priceRef) {
             top.linkTo(parent.top)
             end.linkTo(parent.end)
@@ -130,9 +125,10 @@ fun ConstraintLayoutScope.CardModelText(
 ) {
     Text(
         text = modelText,
-        style = MaterialTheme.typography.subtitle1,
+        style = Typography.subtitle1,
+        color = Colors.onSurface,
         modifier = Modifier.constrainAs(modelRef) {
-            top.linkTo(imageBoxRef.bottom, margin = 8.dp)
+            top.linkTo(imageBoxRef.bottom, margin = Space.spaceSmall)
             start.linkTo(parent.start)
         }
     )
@@ -147,12 +143,12 @@ fun ConstraintLayoutScope.CardProgressIndicator(
     LinearProgressIndicator(
         progress = progressFraction,
         backgroundColor = Color.LightGray,
-        color = Color.Blue,
+        color = Colors.success,
         modifier = Modifier
             .fillMaxWidth()
-            .height(8.dp)
+            .height(Size.sizeXSmall)
             .constrainAs(progressRef) {
-                top.linkTo(modelRef.bottom, margin = 8.dp)
+                top.linkTo(modelRef.bottom, margin = Space.spaceSmall)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -167,9 +163,10 @@ fun ConstraintLayoutScope.CardNextBillingText(
 ) {
     Text(
         text = nextText,
-        style = MaterialTheme.typography.caption,
+        style = Typography.caption,
+        color = Colors.onSurface,
         modifier = Modifier.constrainAs(nextBillingRef) {
-            top.linkTo(priceRef.bottom, margin = 4.dp)
+            top.linkTo(priceRef.bottom, margin = Space.space2XSmall)
             end.linkTo(parent.end)
         }
     )
@@ -183,9 +180,10 @@ fun ConstraintLayoutScope.CardBillingDateText(
 ) {
     Text(
         text = billingDateText,
-        style = MaterialTheme.typography.body1,
+        style = Typography.body1,
+        color = Colors.onSurface,
         modifier = Modifier.constrainAs(billingDateRef) {
-            top.linkTo(nextBillingRef.bottom, margin = 4.dp)
+            top.linkTo(nextBillingRef.bottom, margin = Space.space2XSmall)
             end.linkTo(parent.end)
         }
     )
@@ -199,7 +197,8 @@ fun ConstraintLayoutScope.CardProgressText(
 ) {
     Text(
         text = progressText,
-        style = MaterialTheme.typography.caption,
+        style = Typography.caption,
+        color = Colors.onSurface,
         modifier = Modifier.constrainAs(progressTextRef) {
             top.linkTo(progressRef.top)
             bottom.linkTo(progressRef.bottom)

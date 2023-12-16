@@ -6,4 +6,9 @@
     <string name="not_paid">Not Paid</string>
     <string name="due_date">Due Date %1$s</string>
     <string name="pay">PAY</string>
+    <string name="bill_payments">Bill Payments</string>
+    <string name="active_loans">Active Loans</string>
+    <string name="bill_option_description">%1$s bill option</string>
+    <string name="image_content_description">%1$s image</string>
+
 </resources>

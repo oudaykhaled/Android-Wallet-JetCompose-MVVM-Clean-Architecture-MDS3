@@ -1,15 +1,7 @@
 package com.ouday.cryptowalletsample.home.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,20 +13,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import coil.compose.rememberAsyncImagePainter
+import androidx.compose.ui.res.stringResource
 import com.ouday.cryptowalletsample.R
 import com.ouday.cryptowalletsample.bills.data.model.Bill
-import com.ouday.cryptowalletsample.ui.theme.Size
-import com.ouday.cryptowalletsample.ui.theme.Space
-import com.ouday.cryptowalletsample.ui.theme.Colors
-import com.ouday.cryptowalletsample.ui.theme.Typography
+import com.ouday.cryptowalletsample.ui.theme.*
+import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.ouday.cryptowalletsample.common.getImageUrl
-
 
 @Composable
 fun BillOptionItem(
@@ -57,8 +44,8 @@ fun BillOptionItem(
 
     Column(
         modifier = Modifier
-            .width(40.dp)
-            .height(80.dp)
+            .width(Size.size2XMax)
+            .height(Size.sizeMax)
     ) {
         Box(
             modifier = Modifier
@@ -71,7 +58,7 @@ fun BillOptionItem(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
                         painter = painter,
-                        contentDescription = bill.billName,
+                        contentDescription = stringResource(id = R.string.bill_option_description, bill.billName),
                         modifier = Modifier
                             .size(Size.sizeLarge)
                             .padding(Space.space2XSmall),
@@ -86,7 +73,7 @@ fun BillOptionItem(
                 .fillMaxWidth()
                 .fillMaxHeight(),
             textAlign = TextAlign.Center,
-            style = Typography.caption.copy(fontSize = 8.sp)
+            style = Typography.caption.copy(fontSize = Typography.caption.fontSize)
         )
     }
 }

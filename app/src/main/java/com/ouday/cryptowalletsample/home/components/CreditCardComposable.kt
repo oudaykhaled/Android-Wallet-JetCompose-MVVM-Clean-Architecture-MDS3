@@ -26,10 +26,10 @@ import com.ouday.cryptowalletsample.ui.theme.Typography
 fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .height(Size.sizeXMax) // Using Size from CryptoWalletSampleTheme
-            .clip(RoundedCornerShape(MaterialCornerRadius.radiusMedium)) // Using MaterialCornerRadius from CryptoWalletSampleTheme
-            .background(Colors.surface) // Using Colors from CryptoWalletSampleTheme
-            .padding(Space.spaceMedium) // Using Space from CryptoWalletSampleTheme
+            .height(Size.sizeXMax)
+            .clip(RoundedCornerShape(MaterialCornerRadius.radiusMedium))
+            .background(Colors.surface)
+            .padding(Space.spaceMedium)
     ) {
         ConstraintLayout(
             modifier = Modifier.fillMaxSize()
@@ -38,8 +38,8 @@ fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier
 
             Text(
                 text = cardInfo.cardType,
-                color = Colors.onSurface, 
-                style = Typography.h6, 
+                color = Colors.onSurface,
+                style = Typography.h6,
                 modifier = Modifier.constrainAs(cardType) {
                     top.linkTo(parent.top, margin = Space.spaceMedium)
                     start.linkTo(parent.start, margin = Space.spaceMedium)
@@ -48,8 +48,8 @@ fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier
 
             Text(
                 text = cardInfo.cardNumber, // Masked number for privacy
-                color = Colors.onSurface, 
-                style = Typography.h6, 
+                color = Colors.onSurface,
+                style = Typography.h6,
                 modifier = Modifier.constrainAs(cardNumber) {
                     top.linkTo(cardType.bottom, margin = Space.spaceSmall)
                     end.linkTo(parent.end, margin = Space.spaceMedium)
@@ -58,8 +58,8 @@ fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier
 
             Text(
                 text = stringResource(R.string.due_date, cardInfo.dueDate),
-                color = Colors.onSurface, 
-                style = Typography.subtitle1, 
+                color = Colors.onSurface,
+                style = Typography.subtitle1,
                 modifier = Modifier.constrainAs(dueDate) {
                     top.linkTo(cardNumber.bottom, margin = Space.spaceSmall)
                     start.linkTo(parent.start, margin = Space.spaceMedium)
@@ -68,7 +68,7 @@ fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier
 
             Text(
                 text = cardInfo.amountDue,
-                color = Colors.onSurface, 
+                color = Colors.onSurface,
                 style = Typography.h4.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.constrainAs(amount) {
                     top.linkTo(dueDate.bottom, margin = Space.spaceSmall)
@@ -85,15 +85,15 @@ fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier
             ) {
                 Text(
                     text = stringResource(R.string.pay),
-                    style = Typography.button, 
+                    style = Typography.button,
                     color = Colors.onSurface
                 )
             }
 
             Text(
                 text = cardInfo.paymentStatus,
-                color = Colors.onSurface, 
-                style = Typography.overline, 
+                color = Colors.onSurface,
+                style = Typography.overline,
                 modifier = Modifier.constrainAs(paymentStatus) {
                     start.linkTo(parent.start, margin = Space.spaceMedium)
                     bottom.linkTo(payButton.top, margin = Space.spaceSmall)
