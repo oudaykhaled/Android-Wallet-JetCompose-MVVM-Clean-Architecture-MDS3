@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ouday.cryptowalletsample.ui.theme.craneColors
+import com.ouday.cryptowalletsample.ui.theme.Colors
 
 @Composable
 fun BottomNavigationBar(
@@ -36,7 +36,7 @@ fun BottomNavigationBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(craneColors.surface, RoundedCornerShape(30.dp)),
+                .background(Colors.surface, RoundedCornerShape(30.dp)),
             containerColor = Color.Transparent
         ) {
             var selectedItem by remember { mutableStateOf<BottomNavItem>(BottomNavItem.Home) }

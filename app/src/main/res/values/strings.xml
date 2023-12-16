@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Crypto Wallet Sample</string>
+    <string name="bill_date">Date: %1$s</string>
+    <string name="bill_amount">Amount: %1$s</string>
+    <string name="paid">Paid</string>
+    <string name="not_paid">Not Paid</string>
+    <string name="due_date">Due Date %1$s</string>
+    <string name="pay">PAY</string>
 </resources>

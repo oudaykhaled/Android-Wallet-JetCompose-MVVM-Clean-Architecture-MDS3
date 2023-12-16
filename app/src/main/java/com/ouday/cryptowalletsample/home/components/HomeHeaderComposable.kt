@@ -12,8 +12,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.ouday.cryptowalletsample.R
 import com.ouday.cryptowalletsample.ui.theme.Size
 import com.ouday.cryptowalletsample.ui.theme.Space
-import com.ouday.cryptowalletsample.ui.theme.craneColors
-import com.ouday.cryptowalletsample.ui.theme.craneTypography
+import com.ouday.cryptowalletsample.ui.theme.Colors
+import com.ouday.cryptowalletsample.ui.theme.Typography
 
 @Composable
 fun HomeHeaderComposable(username: String, modifier: Modifier = Modifier) {
@@ -67,7 +67,7 @@ fun UsernameText(username: String, modifier: Modifier) {
     Text(
         text = username,
         modifier = modifier.padding(start = Space.spaceMedium),
-        style = craneTypography.h5.copy(color = craneColors.primary)
+        style = Typography.h5.copy(color = Colors.primary)
     )
 }
 

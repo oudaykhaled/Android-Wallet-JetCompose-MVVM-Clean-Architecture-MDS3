@@ -1,30 +1,35 @@
+package com.ouday.cryptowalletsample.home.components
+
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.ouday.cryptowalletsample.R
 import com.ouday.cryptowalletsample.creditcards.data.model.CreditCardInfo
-import com.ouday.cryptowalletsample.creditcards.ui.viewmodel.CreditCardViewModel
-import com.ouday.cryptowalletsample.ui.theme.*
+import com.ouday.cryptowalletsample.ui.theme.Colors
+import com.ouday.cryptowalletsample.ui.theme.MaterialCornerRadius
+import com.ouday.cryptowalletsample.ui.theme.Size
+import com.ouday.cryptowalletsample.ui.theme.Space
+import com.ouday.cryptowalletsample.ui.theme.Typography
 
 @Composable
 fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .height(200.dp) // Adjust the height as needed
-            .clip(RoundedCornerShape(16.dp)) // Adjust corner size as needed
-            .background(Color.Black) // Use your theme's color
-            .padding(16.dp) // Use your theme's padding
+            .height(Size.sizeXMax) // Using Size from CryptoWalletSampleTheme
+            .clip(RoundedCornerShape(MaterialCornerRadius.radiusMedium)) // Using MaterialCornerRadius from CryptoWalletSampleTheme
+            .background(Colors.surface) // Using Colors from CryptoWalletSampleTheme
+            .padding(Space.spaceMedium) // Using Space from CryptoWalletSampleTheme
     ) {
         ConstraintLayout(
             modifier = Modifier.fillMaxSize()
@@ -33,65 +38,65 @@ fun CreditCardComposable(cardInfo: CreditCardInfo, modifier: Modifier = Modifier
 
             Text(
                 text = cardInfo.cardType,
-                color = Color.White,
-                style = craneTypography.h6, // Use your theme's typography
+                color = Colors.onSurface, 
+                style = Typography.h6, 
                 modifier = Modifier.constrainAs(cardType) {
-                    top.linkTo(parent.top, margin = 16.dp)
-                    start.linkTo(parent.start, margin = 16.dp)
+                    top.linkTo(parent.top, margin = Space.spaceMedium)
+                    start.linkTo(parent.start, margin = Space.spaceMedium)
                 }
             )
 
             Text(
                 text = cardInfo.cardNumber, // Masked number for privacy
-                color = Color.White,
-                style = craneTypography.h6, // Use your theme's typography
+                color = Colors.onSurface, 
+                style = Typography.h6, 
                 modifier = Modifier.constrainAs(cardNumber) {
-                    top.linkTo(cardType.bottom, margin = 8.dp)
-                    end.linkTo(parent.end, margin = 16.dp)
+                    top.linkTo(cardType.bottom, margin = Space.spaceSmall)
+                    end.linkTo(parent.end, margin = Space.spaceMedium)
                 }
             )
 
             Text(
-                text = "Due Date ${cardInfo.dueDate}",
-                color = Color.White,
-                style = craneTypography.subtitle1, // Use your theme's typography
+                text = stringResource(R.string.due_date, cardInfo.dueDate),
+                color = Colors.onSurface, 
+                style = Typography.subtitle1, 
                 modifier = Modifier.constrainAs(dueDate) {
-                    top.linkTo(cardNumber.bottom, margin = 8.dp)
-                    start.linkTo(parent.start, margin = 16.dp)
+                    top.linkTo(cardNumber.bottom, margin = Space.spaceSmall)
+                    start.linkTo(parent.start, margin = Space.spaceMedium)
                 }
             )
 
             Text(
                 text = cardInfo.amountDue,
-                color = Color.White,
-                style = craneTypography.h4.copy(fontSize = 30.sp, fontWeight = FontWeight.Bold), // Use your theme's typography
+                color = Colors.onSurface, 
+                style = Typography.h4.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier.constrainAs(amount) {
-                    top.linkTo(dueDate.bottom, margin = 8.dp)
-                    start.linkTo(parent.start, margin = 16.dp)
+                    top.linkTo(dueDate.bottom, margin = Space.spaceSmall)
+                    start.linkTo(parent.start, margin = Space.spaceMedium)
                 }
             )
 
             Button(
                 onClick = { /* Handle the payment action */ },
                 modifier = Modifier.constrainAs(payButton) {
-                    bottom.linkTo(parent.bottom, margin = 16.dp)
-                    end.linkTo(parent.end, margin = 16.dp)
+                    bottom.linkTo(parent.bottom, margin = Space.spaceMedium)
+                    end.linkTo(parent.end, margin = Space.spaceMedium)
                 }
             ) {
                 Text(
-                    text = "PAY",
-                    style = craneTypography.button, // Use your theme's typography
-                    color = Color.White
+                    text = stringResource(R.string.pay),
+                    style = Typography.button, 
+                    color = Colors.onSurface
                 )
             }
 
             Text(
                 text = cardInfo.paymentStatus,
-                color = Color.White,
-                style = craneTypography.overline, // Use your theme's typography
+                color = Colors.onSurface, 
+                style = Typography.overline, 
                 modifier = Modifier.constrainAs(paymentStatus) {
-                    start.linkTo(parent.start, margin = 16.dp)
-                    bottom.linkTo(payButton.top, margin = 8.dp)
+                    start.linkTo(parent.start, margin = Space.spaceMedium)
+                    bottom.linkTo(payButton.top, margin = Space.spaceSmall)
                 }
             )
         }

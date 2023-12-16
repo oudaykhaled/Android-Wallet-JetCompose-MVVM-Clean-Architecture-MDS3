@@ -37,7 +37,7 @@ val captionTextStyle = TextStyle(
     fontSize = 16.sp
 )
 
-val craneTypography = Typography(
+val Typography = Typography(
     h1 = TextStyle(
         fontFamily = craneFontFamily,
         fontWeight = FontWeight.W300,

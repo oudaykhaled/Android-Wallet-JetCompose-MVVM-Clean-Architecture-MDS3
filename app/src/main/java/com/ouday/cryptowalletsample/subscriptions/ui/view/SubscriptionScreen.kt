@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -23,7 +22,7 @@ import com.ouday.cryptowalletsample.subscriptions.data.model.Subscription
 import com.ouday.cryptowalletsample.subscriptions.ui.viewmodel.SubscriptionViewModel
 import com.ouday.cryptowalletsample.ui.theme.Size
 import com.ouday.cryptowalletsample.ui.theme.Space
-import com.ouday.cryptowalletsample.ui.theme.craneColors
+import com.ouday.cryptowalletsample.ui.theme.Colors
 
 @Composable
 fun SubscriptionScreen(modifier: Modifier = Modifier, viewModel: SubscriptionViewModel = hiltViewModel()) {
@@ -60,7 +59,7 @@ fun SubscriptionsList(subscriptions: List<Subscription>, modifier: Modifier = Mo
                             .fillMaxWidth()
                             .height(Size.sizeMax)
                             .clip(RoundedCornerShape(Size.sizeSmall))
-                            .background(craneColors.primary.copy(alpha = 0.2f))
+                            .background(Colors.primary.copy(alpha = 0.2f))
                             .padding(Size.sizeMedium)
                     )
                 }

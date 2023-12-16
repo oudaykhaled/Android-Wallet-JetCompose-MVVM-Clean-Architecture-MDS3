@@ -1,6 +1,5 @@
 package com.ouday.cryptowalletsample.home.ui.view
 
-import CreditCardComposable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,12 +31,13 @@ import com.ouday.cryptowalletsample.common.FlowState
 import com.ouday.cryptowalletsample.common.HandleFlowState
 import com.ouday.cryptowalletsample.creditcards.data.model.CreditCardInfo
 import com.ouday.cryptowalletsample.home.components.BillOptionItem
+import com.ouday.cryptowalletsample.home.components.CreditCardComposable
 import com.ouday.cryptowalletsample.home.components.LoanCardComposable
 import com.ouday.cryptowalletsample.home.ui.viewmodel.HomeViewModel
 import com.ouday.cryptowalletsample.ui.theme.Size
 import com.ouday.cryptowalletsample.ui.theme.Space
-import com.ouday.cryptowalletsample.ui.theme.craneColors
-import com.ouday.cryptowalletsample.ui.theme.craneTypography
+import com.ouday.cryptowalletsample.ui.theme.Colors
+import com.ouday.cryptowalletsample.ui.theme.Typography
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()) {
@@ -53,7 +53,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
             Spacer(modifier = Modifier.height(Space.spaceMedium))
             Text(
                 text = "Bill Payments",
-                style = craneTypography.subtitle1,
+                style = Typography.subtitle1,
                 modifier = Modifier.padding(start = Space.spaceLarge)
             )
             Spacer(modifier = Modifier.height(Space.spaceSmall))
@@ -61,7 +61,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
             Spacer(modifier = Modifier.height(Space.spaceSmall))
             Text(
                 text = "Active Loans",
-                style = craneTypography.subtitle1,
+                style = Typography.subtitle1,
                 modifier = Modifier.padding(start = Space.spaceLarge)
             )
             Spacer(modifier = Modifier.height(Space.spaceSmall))
@@ -91,7 +91,7 @@ fun Subscriptions(viewModel: HomeViewModel = hiltViewModel()) {
                                 .width(Size.size2XMax)
                                 .height(Size.sizeMax)
                                 .clip(RoundedCornerShape(Size.sizeSmall))
-                                .background(craneColors.primary.copy(alpha = 0.2f))
+                                .background(Colors.primary.copy(alpha = 0.2f))
                                 .padding(Size.sizeMedium)
                         )
                     }
@@ -175,8 +175,8 @@ fun CreditCardsPager(creditCards: List<CreditCardInfo>) {
         HorizontalPagerIndicator(
             pagerState = pagerState,
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            activeColor = craneColors.primary,
-            inactiveColor = craneColors.primary.copy(alpha = 0.6f)
+            activeColor = Colors.primary,
+            inactiveColor = Colors.primary.copy(alpha = 0.6f)
         )
     }
 }

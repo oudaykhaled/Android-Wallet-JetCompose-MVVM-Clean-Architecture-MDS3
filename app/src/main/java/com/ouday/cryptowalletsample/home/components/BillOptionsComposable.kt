@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
@@ -29,8 +28,8 @@ import com.ouday.cryptowalletsample.R
 import com.ouday.cryptowalletsample.bills.data.model.Bill
 import com.ouday.cryptowalletsample.ui.theme.Size
 import com.ouday.cryptowalletsample.ui.theme.Space
-import com.ouday.cryptowalletsample.ui.theme.craneColors
-import com.ouday.cryptowalletsample.ui.theme.craneTypography
+import com.ouday.cryptowalletsample.ui.theme.Colors
+import com.ouday.cryptowalletsample.ui.theme.Typography
 import coil.decode.SvgDecoder
 import coil.imageLoader
 import coil.request.ImageRequest
@@ -65,7 +64,7 @@ fun BillOptionItem(
             modifier = Modifier
                 .clip(RoundedCornerShape(Size.sizeSmall))
                 .fillMaxWidth()
-                .background(craneColors.primary.copy(alpha = if (isSelected) 0.8f else 0.2f))
+                .background(Colors.primary.copy(alpha = if (isSelected) 0.8f else 0.2f))
                 .wrapContentHeight()
         ) {
             IconButton(onClick = { onBillClicked(bill) }) {
@@ -76,7 +75,7 @@ fun BillOptionItem(
                         modifier = Modifier
                             .size(Size.sizeLarge)
                             .padding(Space.space2XSmall),
-                        tint = if (isSelected) craneColors.background else craneColors.onSurface
+                        tint = if (isSelected) Colors.background else Colors.onSurface
                     )
                 }
             }
@@ -87,7 +86,7 @@ fun BillOptionItem(
                 .fillMaxWidth()
                 .fillMaxHeight(),
             textAlign = TextAlign.Center,
-            style = craneTypography.caption.copy(fontSize = 8.sp)
+            style = Typography.caption.copy(fontSize = 8.sp)
         )
     }
 }
