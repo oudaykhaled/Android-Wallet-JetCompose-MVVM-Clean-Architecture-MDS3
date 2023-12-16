@@ -51,26 +51,26 @@ class BillViewModelTest {
     }
 
     @Test
-    fun `triggerFetchBills emits loading and then success state`() = testScope.runTest {
-        val historyList = listOf(History("2023-01-01", 100.0, true))
-        val billList = listOf(Bill(1, "Electricity", "icon_url", historyList))
+    fun `triggerFetchBills emits loading and then success state`() = runTest {
+        val history = listOf(
+            History("2022-02-24", 313.08, true),
+        )
+        val bills = listOf(Bill(1, "Electricity Bill", "electricity.svg", history))
+        `when`(billUseCase.getBills()).thenReturn(flowOf(bills))
 
-        `when`(billUseCase.getBills()).thenReturn(flowOf(billList))
-
-        val collectedStates = mutableListOf<FlowState<List<Bill>>>()
         val job = launch {
-            viewModel.bills.collect { collectedStates.add(it) }
+            viewModel.triggerFetchBills()
         }
-
-        viewModel.triggerFetchBills()
 
         val states = viewModel.bills.take(2).toList()
 
         Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
         advanceUntilIdle()
-        advanceTimeBy(1000)
-        Assert.assertTrue("Second state should be Success", states.size > 1 && states[1] is FlowState.Success && (states[1] as FlowState.Success).data == billList)
 
+        Assert.assertTrue(
+            "Second state should be Success",
+            states[1] is FlowState.Success && (states[1] as FlowState.Success).data == bills
+        )
         job.cancel()
     }
 
