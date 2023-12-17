@@ -23,7 +23,7 @@ jobs:
         run: ./gradlew build
 
       - name: Run unit tests
-        run: ./gradlew test
+        run: ./gradlew jacocoTestReport
 
       - name: Run Android Lint
         run: ./gradlew lint

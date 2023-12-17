@@ -1,9 +1,12 @@
 
-# Crypto Wallet Sample
+# Wallet Sample
 
 ## Introduction
 
-🚀 Welcome to **Crypto Wallet Sample**! An innovative and educational 🎓 Android project that showcases Clean Architecture and MVVM using Jetpack Compose. This project is perfect for anyone looking to get hands-on experience with modern Android development techniques.
+🚀 Welcome to **Wallet Sample**! An innovative and educational 🎓 Android project that showcases Clean Architecture and MVVM using Jetpack Compose. This project is perfect for anyone looking to get hands-on experience with modern Android development techniques.
+
+## Purpose
+This project is intentionally designed to facilitate a smooth transition from traditional XML-based Android development to the modern Jetpack Compose framework. With a focus on simplicity and practical learning, it serves as an ideal starting point for beginners and a refreshing change for experienced developers accustomed to XML. Embrace the shift to a more dynamic and efficient way of building Android UIs with Jetpack Compose.
 
 ## Features
 
@@ -34,4 +37,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ----------
 
-🔥 Dive into the world of advanced Android development and explore the capabilities of Jetpack Compose with Crypto Wallet Sample!
+🔥 Dive into the world of advanced Android development and explore the capabilities of Jetpack Compose with Wallet Sample!
