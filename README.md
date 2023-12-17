@@ -8,6 +8,11 @@
 ## Purpose
 This project is intentionally designed to facilitate a smooth transition from traditional XML-based Android development to the modern Jetpack Compose framework. With a focus on simplicity and practical learning, it serves as an ideal starting point for beginners and a refreshing change for experienced developers accustomed to XML. Embrace the shift to a more dynamic and efficient way of building Android UIs with Jetpack Compose.
 
+
+## Join Our Development Journey
+
+🌟 **Interested in Contributing?** We warmly invite developers of all skill levels to contribute to the **Wallet Sample** project. Whether you're a seasoned developer or just starting out, your insights and contributions are valuable to us. If you're passionate about helping others transition from XML-based Android development to Jetpack Compose, or if you have ideas to enhance this project, please see our [Contribution Guidelines](./CONTRIBUTING.md). Together, let's make this project a cornerstone for learning and innovation in Android development. 🚀
+
 ## Features
 
 -   🏗️ **Clean Architecture & MVVM**: Ensures scalable, maintainable, and testable code.
