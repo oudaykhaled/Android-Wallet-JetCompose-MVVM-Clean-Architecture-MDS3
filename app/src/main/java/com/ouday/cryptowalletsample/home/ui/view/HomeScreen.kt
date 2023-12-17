@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -41,7 +42,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
                 text = stringResource(id = R.string.bill_payments),
                 style = Typography.subtitle1,
                 modifier = Modifier.padding(start = Space.spaceLarge),
-                color = Colors.onSurface
+                color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(modifier = Modifier.height(Space.spaceSmall))
             BillOptionsComposable(viewModel = viewModel)
@@ -50,7 +51,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
                 text = stringResource(id = R.string.active_loans),
                 style = Typography.subtitle1,
                 modifier = Modifier.padding(start = Space.spaceLarge),
-                color = Colors.onSurface
+                color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(modifier = Modifier.height(Space.spaceSmall))
             Subscriptions(viewModel = viewModel)
@@ -79,7 +80,7 @@ fun Subscriptions(viewModel: HomeViewModel = hiltViewModel()) {
                                 .width(Size.size2XMax)
                                 .height(Size.sizeMax)
                                 .clip(RoundedCornerShape(Size.sizeSmall))
-                                .background(Colors.primary.copy(alpha = 0.2f))
+                                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.2f))
                                 .padding(Size.sizeMedium)
                         )
                     }
@@ -162,8 +163,8 @@ fun CreditCardsPager(creditCards: List<CreditCardInfo>) {
         HorizontalPagerIndicator(
             pagerState = pagerState,
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            activeColor = Colors.primary,
-            inactiveColor = Colors.primary.copy(alpha = 0.6f)
+            activeColor = MaterialTheme.colorScheme.primary,
+            inactiveColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
         )
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,7 +32,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.ouday.cryptowalletsample.ui.theme.Colors
 
 @Composable
 fun <T> HandleFlowState(
@@ -117,14 +117,14 @@ fun ErrorContent(errorMessage: String, onRetry: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
         // Error icon or image (optional)
-        Icon(Icons.Filled.Error, contentDescription = "Error", tint = Colors.error)
+        Icon(Icons.Filled.Error, contentDescription = "Error", tint = MaterialTheme.colorScheme.error)
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Error message text
         Text(
             text = errorMessage,
-            color = Colors.error,
+            color = MaterialTheme.colorScheme.error,
             style = typography.body1,
             textAlign = TextAlign.Center
         )

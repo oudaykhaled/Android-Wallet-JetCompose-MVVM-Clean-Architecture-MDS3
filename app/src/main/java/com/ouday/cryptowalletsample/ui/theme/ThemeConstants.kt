@@ -1,23 +1,6 @@
 package com.ouday.cryptowalletsample.ui.theme
 
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.lightColors
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-
-val Colors.success: Color
-    get() = Color(0xFF4CAF50) // Example: Changed to Material Green
-
-val Colors = lightColors(
-    primary = Color(0xFF6200EE), // Example: Changed to Material Deep Purple
-    primaryVariant = Color(0xFF3700B3), // Example: Changed to a darker shade of Deep Purple
-    secondary = Color(0xFF03DAC6), // Example: Changed to Material Teal
-    surface = Color(0xFF121212), // Example: Changed to a dark surface color
-    onSurface = Color(0xFFFFFFFF), // Example: Changed to White for contrast on dark surface
-    onBackground = Color(0xFF000000) // Example: Black for background
-)
 
 object Size {
     val sizeXSmall = 4.dp
@@ -59,11 +42,4 @@ object MaterialElevation {
     val elevationLevel2 = 4.dp // For small components like cards
     val elevationLevel3 = 6.dp // For medium components
     val elevationLevel4 = 8.dp // For large components
-}
-
-@Composable
-fun CryptoWalletSampleTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colors = Colors, typography = Typography) {
-        content()
-    }
 }

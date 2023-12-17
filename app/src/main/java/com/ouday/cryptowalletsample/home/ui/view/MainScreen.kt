@@ -28,8 +28,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     BottomNavItem.Search,
                     BottomNavItem.Wallet,
                     BottomNavItem.Profile,
-                ),
-                "home"
+                )
             ) { selectedItem ->
                 navController.navigate(selectedItem.route)
             }
@@ -41,7 +40,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 .padding(innerPadding)
         ) {
             HomeHeaderComposable(
-                "Ouday",
+                "Welcome Back!",
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()

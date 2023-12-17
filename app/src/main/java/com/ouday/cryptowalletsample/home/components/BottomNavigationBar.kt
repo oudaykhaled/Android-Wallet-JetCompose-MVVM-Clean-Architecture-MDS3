@@ -3,6 +3,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Wallet
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -21,22 +23,33 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.ouday.cryptowalletsample.ui.theme.Colors
+import com.ouday.cryptowalletsample.R
+import com.ouday.cryptowalletsample.ui.theme.*
 
 @Composable
 fun BottomNavigationBar(
     items: List<BottomNavItem>,
-    currentRoute: String,
     onItemSelected: (BottomNavItem) -> Unit
 ) {
-    Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 24.dp, top = 8.dp)) {
+    Box(
+        modifier = Modifier
+            .padding(
+            start = Space.spaceLarge,
+            end = Space.spaceLarge,
+            bottom = Space.spaceXLarge,
+            top = Space.spaceSmall
+        )
+    ) {
         NavigationBar(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
-                .background(Colors.surface, RoundedCornerShape(30.dp)),
+                .height(Space.space2XLarge)
+                .background(
+                    MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+                    RoundedCornerShape(MaterialCornerRadius.radiusMedium)
+                ),
             containerColor = Color.Transparent
         ) {
             var selectedItem by remember { mutableStateOf<BottomNavItem>(BottomNavItem.Home) }
@@ -46,7 +59,7 @@ fun BottomNavigationBar(
                     icon = {
                         Icon(
                             imageVector = item.icon,
-                            contentDescription = item.label
+                            contentDescription = stringResource(id = item.labelRes)
                         )
                     },
 
@@ -56,11 +69,11 @@ fun BottomNavigationBar(
                         onItemSelected(item)
                     },
                     colors = NavigationBarItemDefaults.colors(
-                        indicatorColor = Color(0xFFFF0000),
-                        unselectedIconColor = Color(0xFF10720D),
-                        unselectedTextColor = Color(0xFF1870DD),
-                        selectedIconColor = Color(0xFF14DA7C),
-                        selectedTextColor = Color(0xFFD6DD18),
+                        indicatorColor = MaterialTheme.colorScheme.primary,
+                        unselectedIconColor = MaterialTheme.colorScheme.onSurface,
+                        unselectedTextColor = MaterialTheme.colorScheme.onSurface,
+                        selectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        selectedTextColor = MaterialTheme.colorScheme.secondary,
                     ),
                     alwaysShowLabel = true
                 )
@@ -71,17 +84,26 @@ fun BottomNavigationBar(
 
 @Preview(showBackground = true)
 @Composable
-fun BottomNavigationBarPreview() {
-    BottomNavigationBar(
-        listOf(BottomNavItem.Home),
-        "home",
-        {}
+fun PreviewBottomNavigationBar() {
+    // Sample items for the bottom navigation bar
+    val items = listOf(
+        BottomNavItem.Home,
+        BottomNavItem.Search,
+        BottomNavItem.Wallet,
+        BottomNavItem.Profile
     )
+
+    BottomNavigationBar(
+        items = items
+    )
+    // This can be dynamic based on the current route in your actual app
+    { /* Handle item selection */ }
 }
 
-sealed class BottomNavItem(val route: String, val icon: ImageVector, val label: String) {
-    object Home : BottomNavItem("home", Icons.Filled.Home, "Home")
-    object Search : BottomNavItem("Search", Icons.Filled.Search, "Search")
-    object Wallet : BottomNavItem("Wallet", Icons.Filled.Wallet, "Wallet")
-    object Profile : BottomNavItem("Profile", Icons.Filled.Person, "Profile")
+
+sealed class BottomNavItem(val route: String, val icon: ImageVector, val labelRes: Int) {
+    object Home : BottomNavItem("home", Icons.Filled.Home, R.string.nav_home)
+    object Search : BottomNavItem("search", Icons.Filled.Search, R.string.nav_search)
+    object Wallet : BottomNavItem("wallet", Icons.Filled.Wallet, R.string.nav_wallet)
+    object Profile : BottomNavItem("profile", Icons.Filled.Person, R.string.nav_profile)
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,12 +34,10 @@ import com.ouday.cryptowalletsample.bills.ui.viewmodel.BillViewModel
 import com.ouday.cryptowalletsample.common.FlowState
 import com.ouday.cryptowalletsample.common.HandleFlowState
 import com.ouday.cryptowalletsample.home.components.BillOptionItem
-import com.ouday.cryptowalletsample.ui.theme.Colors
 import com.ouday.cryptowalletsample.ui.theme.MaterialCornerRadius
 import com.ouday.cryptowalletsample.ui.theme.Size
 import com.ouday.cryptowalletsample.ui.theme.Space
 import com.ouday.cryptowalletsample.ui.theme.Typography
-import com.ouday.cryptowalletsample.ui.theme.success
 
 @Composable
 fun BillsScreen(modifier: Modifier = Modifier, viewModel: BillViewModel = hiltViewModel()) {
@@ -88,7 +87,7 @@ fun BillDetails(history: History, modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .padding(horizontal = Space.spaceSmall, vertical = Space.spaceSmall)
             .clip(RoundedCornerShape(MaterialCornerRadius.radiusMedium))
-            .background(Colors.primaryVariant)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(Space.spaceMedium),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -103,7 +102,7 @@ fun BillDetails(history: History, modifier: Modifier = Modifier) {
                 style = Typography.body1,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                color = Colors.onSurface 
+                color = MaterialTheme.colorScheme.onSurface 
             )
             Text(
                 text = stringResource(
@@ -113,7 +112,7 @@ fun BillDetails(history: History, modifier: Modifier = Modifier) {
                 style = Typography.body1,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                color = Colors.onSurface 
+                color = MaterialTheme.colorScheme.onSurface 
             )
         }
         Box(
@@ -121,12 +120,12 @@ fun BillDetails(history: History, modifier: Modifier = Modifier) {
                 .width(Size.size3XLarge)
                 .size(Space.spaceLarge)
                 .clip(CircleShape)
-                .background(if (history.paid) Colors.success else Colors.error),
+                .background(if (history.paid) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.error),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = if (history.paid) stringResource(R.string.paid) else stringResource(R.string.not_paid),
-                color = Colors.onSurface,
+                color = MaterialTheme.colorScheme.onSurface,
                 style = Typography.caption,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

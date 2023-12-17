@@ -5,13 +5,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintLayoutScope
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
@@ -34,7 +38,10 @@ fun LoanCardComposable(
 
             CardImageBox(
                 imageResourceId = R.drawable.ic_car,
-                imageContentDescription = stringResource(R.string.image_content_description, content.imageContentDescription),
+                imageContentDescription = stringResource(
+                    R.string.image_content_description,
+                    content.imageContentDescription
+                ),
                 imageBoxRef = imageBox
             )
 
@@ -84,7 +91,7 @@ fun ConstraintLayoutScope.CardImageBox(
 ) {
     Box(
         modifier = Modifier
-            .size(Size.sizeLarge)
+            .size(Size.size2XLarge)
             .background(Color.White, RoundedCornerShape(MaterialCornerRadius.radiusSmall))
             .constrainAs(imageBoxRef) {
                 top.linkTo(parent.top)
@@ -95,7 +102,7 @@ fun ConstraintLayoutScope.CardImageBox(
             painter = painterResource(id = imageResourceId),
             contentDescription = imageContentDescription,
             modifier = Modifier
-                .size(Size.sizeMedium)
+                .size(Size.sizeXLarge)
                 .align(Alignment.Center)
         )
     }
@@ -109,7 +116,7 @@ fun ConstraintLayoutScope.CardPriceText(
     Text(
         text = priceText,
         style = Typography.h6,
-        color = Colors.onSurface,
+        color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.constrainAs(priceRef) {
             top.linkTo(parent.top)
             end.linkTo(parent.end)
@@ -126,7 +133,7 @@ fun ConstraintLayoutScope.CardModelText(
     Text(
         text = modelText,
         style = Typography.subtitle1,
-        color = Colors.onSurface,
+        color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.constrainAs(modelRef) {
             top.linkTo(imageBoxRef.bottom, margin = Space.spaceSmall)
             start.linkTo(parent.start)
@@ -143,14 +150,14 @@ fun ConstraintLayoutScope.CardProgressIndicator(
     LinearProgressIndicator(
         progress = progressFraction,
         backgroundColor = Color.LightGray,
-        color = Colors.success,
+        color = MaterialTheme.colorScheme.secondary,
         modifier = Modifier
-            .fillMaxWidth()
+            .wrapContentWidth()
             .height(Size.sizeXSmall)
             .constrainAs(progressRef) {
                 top.linkTo(modelRef.bottom, margin = Space.spaceSmall)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
+                start.linkTo(parent.start, margin = Space.spaceMedium)
+                end.linkTo(progressRef.end, margin = Space.spaceSmall)
             }
     )
 }
@@ -164,7 +171,7 @@ fun ConstraintLayoutScope.CardNextBillingText(
     Text(
         text = nextText,
         style = Typography.caption,
-        color = Colors.onSurface,
+        color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.constrainAs(nextBillingRef) {
             top.linkTo(priceRef.bottom, margin = Space.space2XSmall)
             end.linkTo(parent.end)
@@ -181,7 +188,7 @@ fun ConstraintLayoutScope.CardBillingDateText(
     Text(
         text = billingDateText,
         style = Typography.body1,
-        color = Colors.onSurface,
+        color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.constrainAs(billingDateRef) {
             top.linkTo(nextBillingRef.bottom, margin = Space.space2XSmall)
             end.linkTo(parent.end)
@@ -198,11 +205,132 @@ fun ConstraintLayoutScope.CardProgressText(
     Text(
         text = progressText,
         style = Typography.caption,
-        color = Colors.onSurface,
+        color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.constrainAs(progressTextRef) {
             top.linkTo(progressRef.top)
             bottom.linkTo(progressRef.bottom)
-            end.linkTo(progressRef.end)
+            end.linkTo(parent.end)
         }
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewLoanCardComposable() {
+    // Sample Subscription data for the preview
+    val sampleSubscription = Subscription(
+        priceText = "$1,500",
+        modelText = "Car Loan",
+        nextText = "Next Billing: 01/15/2024",
+        billingDateText = "Billing Date: 01/15/2023",
+        progressText = "60% Paid",
+        progressFraction = 0.6,
+        imageContentDescription = "Car Image",
+        imageResourceId = "sample_car_image_resource" // Replace with actual resource ID
+    )
+
+    LoanCardComposable(
+        content = sampleSubscription,
+        modifier = Modifier
+            .width(Size.size2XMax)
+            .height(Size.sizeMax)
+            .clip(RoundedCornerShape(Size.sizeSmall))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .padding(Size.sizeMedium)
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCardImageBox() {
+    ConstraintLayout {
+        val imageBoxRef = createRef()
+        CardImageBox(
+            imageResourceId = R.drawable.ic_car,
+            imageContentDescription = "Sample Image",
+            imageBoxRef = imageBoxRef
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCardPriceText() {
+    ConstraintLayout {
+        val priceRef = createRef()
+        CardPriceText(
+            priceText = "$999",
+            priceRef = priceRef
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCardModelText() {
+    ConstraintLayout {
+        val modelRef = createRef()
+        val imageBoxRef = createRef()
+        CardModelText(
+            modelText = "Car Model X",
+            modelRef = modelRef,
+            imageBoxRef = imageBoxRef
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCardProgressIndicator() {
+    ConstraintLayout {
+        val progressRef = createRef()
+        val modelRef = createRef()
+        CardProgressIndicator(
+            progressFraction = 0.5f,
+            progressRef = progressRef,
+            modelRef = modelRef
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCardNextBillingText() {
+    ConstraintLayout {
+        val nextBillingRef = createRef()
+        val priceRef = createRef()
+        CardNextBillingText(
+            nextText = "Next Billing: 10/10/2023",
+            nextBillingRef = nextBillingRef,
+            priceRef = priceRef
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCardBillingDateText() {
+    ConstraintLayout {
+        val billingDateRef = createRef()
+        val nextBillingRef = createRef()
+        CardBillingDateText(
+            billingDateText = "Billing Date: 09/10/2023",
+            billingDateRef = billingDateRef,
+            nextBillingRef = nextBillingRef
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCardProgressText() {
+    ConstraintLayout {
+        val progressTextRef = createRef()
+        val progressRef = createRef()
+        CardProgressText(
+            progressText = "Progress: 50%",
+            progressTextRef = progressTextRef,
+            progressRef = progressRef
+        )
+    }
 }
