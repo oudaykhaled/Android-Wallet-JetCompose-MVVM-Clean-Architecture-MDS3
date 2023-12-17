@@ -1,16 +1,15 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.ouday.cryptowalletsample.common.FlowState
 import com.ouday.cryptowalletsample.bills.data.model.Bill
 import com.ouday.cryptowalletsample.bills.data.model.History
 import com.ouday.cryptowalletsample.bills.domain.usecase.BillUseCase
-import com.ouday.cryptowalletsample.common.asFlowState
+import com.ouday.cryptowalletsample.common.FlowState
 import com.ouday.cryptowalletsample.creditcards.data.model.CreditCardInfo
 import com.ouday.cryptowalletsample.creditcards.usecase.CreditCardUseCase
+import com.ouday.cryptowalletsample.home.ui.viewmodel.HomeViewModel
 import com.ouday.cryptowalletsample.subscriptions.data.model.Subscription
 import com.ouday.cryptowalletsample.subscriptions.usecase.SubscriptionUseCase
-import com.ouday.cryptowalletsample.home.ui.viewmodel.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
@@ -23,12 +22,12 @@ import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import org.junit.Assert.assertTrue
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
@@ -63,7 +62,7 @@ class HomeViewModelTest {
             History("2022-02-24", 313.08, true),
         )
         val bills = listOf(Bill(1, "Electricity Bill", "electricity.svg", history))
-        `when`(billUseCase.getBills()).thenReturn(flowOf(bills))
+        Mockito.`when`(billUseCase.getBills()).thenReturn(flowOf(bills))
 
         val job = launch {
             viewModel.triggerFetchBills()
@@ -71,10 +70,13 @@ class HomeViewModelTest {
 
         val states = viewModel.bills.take(2).toList()
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
         advanceUntilIdle()
 
-        assertTrue("Second state should be Success", states[1] is FlowState.Success && (states[1] as FlowState.Success).data == bills)
+        Assert.assertTrue(
+            "Second state should be Success",
+            states[1] is FlowState.Success && (states[1] as FlowState.Success).data == bills
+        )
         job.cancel()
     }
 
@@ -85,7 +87,7 @@ class HomeViewModelTest {
             throw Exception(errorMessage)
         }
 
-        `when`(billUseCase.getBills()).thenReturn(errorFlow)
+        Mockito.`when`(billUseCase.getBills()).thenReturn(errorFlow)
 
         val job = launch {
             viewModel.triggerFetchBills()
@@ -95,8 +97,11 @@ class HomeViewModelTest {
         advanceUntilIdle()
         advanceTimeBy(1000)
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Error", states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Error",
+            states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage
+        )
         job.cancel()
     }
 
@@ -111,7 +116,7 @@ class HomeViewModelTest {
                 "Paid"
             )
         )
-        `when`(creditCardUseCase.getCreditCards()).thenReturn(flowOf(creditCards))
+        Mockito.`when`(creditCardUseCase.getCreditCards()).thenReturn(flowOf(creditCards))
 
         val job = launch {
             viewModel.triggerFetchCreditCards()
@@ -119,8 +124,11 @@ class HomeViewModelTest {
 
         val states = viewModel.creditCards.take(2).toList()
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Success", states[1] is FlowState.Success && (states[1] as FlowState.Success).data == creditCards)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Success",
+            states[1] is FlowState.Success && (states[1] as FlowState.Success).data == creditCards
+        )
         job.cancel()
     }
 
@@ -131,7 +139,7 @@ class HomeViewModelTest {
             throw Exception(errorMessage)
         }
 
-        `when`(creditCardUseCase.getCreditCards()).thenReturn(errorFlow)
+        Mockito.`when`(creditCardUseCase.getCreditCards()).thenReturn(errorFlow)
 
         val job = launch {
             viewModel.triggerFetchCreditCards()
@@ -141,8 +149,11 @@ class HomeViewModelTest {
         advanceUntilIdle()
         advanceTimeBy(1000)
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Error", states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Error",
+            states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage
+        )
         job.cancel()
     }
 
@@ -160,7 +171,7 @@ class HomeViewModelTest {
                 "Image Resource ID"
             )
         )
-        `when`(subscriptionUseCase.getCreditCards()).thenReturn(flowOf(subscriptions))
+        Mockito.`when`(subscriptionUseCase.getCreditCards()).thenReturn(flowOf(subscriptions))
 
         val job = launch {
             viewModel.triggerFetchSubscriptions()
@@ -168,8 +179,11 @@ class HomeViewModelTest {
 
         val states = viewModel.subscriptions.take(2).toList()
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Success", states[1] is FlowState.Success && (states[1] as FlowState.Success).data == subscriptions)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Success",
+            states[1] is FlowState.Success && (states[1] as FlowState.Success).data == subscriptions
+        )
         job.cancel()
     }
 
@@ -180,7 +194,7 @@ class HomeViewModelTest {
             throw Exception(errorMessage)
         }
 
-        `when`(subscriptionUseCase.getCreditCards()).thenReturn(errorFlow)
+        Mockito.`when`(subscriptionUseCase.getCreditCards()).thenReturn(errorFlow)
 
         val job = launch {
             viewModel.triggerFetchSubscriptions()
@@ -190,8 +204,11 @@ class HomeViewModelTest {
         advanceUntilIdle()
         advanceTimeBy(1000)
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Error", states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Error",
+            states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage
+        )
         job.cancel()
     }
 }

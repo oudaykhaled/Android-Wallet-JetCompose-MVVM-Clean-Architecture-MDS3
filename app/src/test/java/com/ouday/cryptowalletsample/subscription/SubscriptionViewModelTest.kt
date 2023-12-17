@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.subscription
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.ouday.cryptowalletsample.common.FlowState
@@ -17,12 +17,12 @@ import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import org.junit.Assert.assertTrue
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
@@ -59,7 +59,7 @@ class SubscriptionViewModelTest {
                 "Image Resource ID"
             )
         )
-        `when`(subscriptionUseCase.getCreditCards()).thenReturn(flowOf(subscriptions))
+        Mockito.`when`(subscriptionUseCase.getCreditCards()).thenReturn(flowOf(subscriptions))
 
         val job = launch {
             viewModel.triggerFetchSubscription()
@@ -67,8 +67,11 @@ class SubscriptionViewModelTest {
 
         val states = viewModel.subscriptions.take(2).toList()
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Success", states[1] is FlowState.Success && (states[1] as FlowState.Success).data == subscriptions)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Success",
+            states[1] is FlowState.Success && (states[1] as FlowState.Success).data == subscriptions
+        )
         job.cancel()
     }
 
@@ -79,7 +82,7 @@ class SubscriptionViewModelTest {
             throw Exception(errorMessage)
         }
 
-        `when`(subscriptionUseCase.getCreditCards()).thenReturn(errorFlow)
+        Mockito.`when`(subscriptionUseCase.getCreditCards()).thenReturn(errorFlow)
 
         val job = launch {
             viewModel.triggerFetchSubscription()
@@ -89,8 +92,11 @@ class SubscriptionViewModelTest {
         advanceUntilIdle()
         advanceTimeBy(1000)
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Error", states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Error",
+            states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage
+        )
         job.cancel()
     }
 }

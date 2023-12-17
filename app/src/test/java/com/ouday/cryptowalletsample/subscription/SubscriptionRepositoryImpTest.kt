@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.subscription
 
 import com.ouday.cryptowalletsample.subscriptions.data.model.Subscription
 import com.ouday.cryptowalletsample.subscriptions.data.remote.SubscriptionApiService
@@ -8,8 +8,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
 
@@ -23,13 +22,23 @@ class SubscriptionRepositoryImpTest {
     @Before
     fun setUp() = runTest {
         MockitoAnnotations.openMocks(this)
-        subscriptionApiService = mock(SubscriptionApiService::class.java)
+        subscriptionApiService = Mockito.mock(SubscriptionApiService::class.java)
         subscriptionRepository = SubscriptionRepositoryImp(subscriptionApiService)
 
         val subscriptions = listOf(
-            Subscription("$399/M", "Model X", "NEXT", "5th Oct", "48/60", 0.8, "Car Image", "ic_car")
+            Subscription(
+                "$399/M",
+                "Model X",
+                "NEXT",
+                "5th Oct",
+                "48/60",
+                0.8,
+                "Car Image",
+                "ic_car"
+            )
         )
-        `when`(subscriptionApiService.getSubscriptions()).thenReturn(Response.success(subscriptions))
+        Mockito.`when`(subscriptionApiService.getSubscriptions())
+            .thenReturn(Response.success(subscriptions))
     }
 
     @Test
@@ -50,7 +59,8 @@ class SubscriptionRepositoryImpTest {
 
     @Test(expected = Exception::class)
     fun `getSubscriptions throws exception on API failure`() = runTest {
-        `when`(subscriptionApiService.getSubscriptions()).thenThrow(RuntimeException("Network Error"))
+        Mockito.`when`(subscriptionApiService.getSubscriptions())
+            .thenThrow(RuntimeException("Network Error"))
 
         subscriptionRepository.getSubscriptions().toList()
     }

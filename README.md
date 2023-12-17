@@ -27,6 +27,16 @@ This project is intentionally designed to facilitate a smooth transition from tr
 -   💾 **Moshi**: Seamless JSON parsing.
 -   ⏳ **Kotlin Coroutines**: Manage background tasks effortlessly.
 
+
+## Learn from this Repo
+
+-   **Jetpack Compose Unveiled**: Explore our in-depth guide on the Wallet Sample Project, available in this repository. [Jetpack Compose Unveiled Guide](./Jetpack_Compose_Unveiled_A_Practical_Guide_through_the_Wallet_Sample_Project.md)
+-   **Understanding Clean Architecture in Android**: Discover architectural insights used in this project, shared right here. [Clean Architecture Guide](./understanding_clean_architecture_in_android.md)
+-   **Understanding Style and MDS3**: Dive into modern design systems and styles, all within this repo. [Style and MDS3 Guide](./understanding_style_and_mds3.md)
+-   **Android Unit Testing Guide**: This file is a guide on Android unit testing, covering best practices and analysis of Kotlin test files. [Android Unit Testing Guide](./Android_Unit_Testing_Guide.md)
+-   **Guide to Android Instrumented Tests Guide**: This file is a guide on Android Instrumented testing, covering best practices and analysis of Kotlin test files. [Guide to Android Instrumented Tests Guide](./Android_Instrumented_Testing_Guide.md)
+
+
 ## Getting Started
 
 1.  **Clone the Repository**: `git clone https://github.com/your-repo-link`

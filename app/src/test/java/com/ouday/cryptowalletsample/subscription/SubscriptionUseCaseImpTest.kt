@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.subscription
 
 import com.ouday.cryptowalletsample.subscriptions.data.model.Subscription
 import com.ouday.cryptowalletsample.subscriptions.data.repository.SubscriptionRepository
@@ -9,7 +9,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class SubscriptionUseCaseImpTest {
@@ -28,9 +28,18 @@ class SubscriptionUseCaseImpTest {
     @Test
     fun `getSubscriptions returns list of subscriptions`() = runTest {
         val subscriptions = listOf(
-            Subscription("$399/M", "Model X", "NEXT", "5th Oct", "48/60", 0.8, "Car Image", "ic_car")
+            Subscription(
+                "$399/M",
+                "Model X",
+                "NEXT",
+                "5th Oct",
+                "48/60",
+                0.8,
+                "Car Image",
+                "ic_car"
+            )
         )
-        `when`(subscriptionRepository.getSubscriptions()).thenReturn(flowOf(subscriptions))
+        Mockito.`when`(subscriptionRepository.getSubscriptions()).thenReturn(flowOf(subscriptions))
 
         val result = subscriptionUseCase.getCreditCards().toList()
         assert(result[0] == subscriptions)

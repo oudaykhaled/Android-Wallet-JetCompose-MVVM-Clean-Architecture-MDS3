@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.bills
 
 import com.ouday.cryptowalletsample.bills.data.model.Bill
 import com.ouday.cryptowalletsample.bills.data.model.History
@@ -9,8 +9,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
 
@@ -24,7 +23,7 @@ class BillRepositoryImpTest {
     @Before
     fun setUp() = runTest {
         MockitoAnnotations.openMocks(this)
-        apiService = mock(BillApiService::class.java)
+        apiService = Mockito.mock(BillApiService::class.java)
         billRepository = BillRepositoryImp(apiService)
         billRepository = BillRepositoryImp(apiService)
 
@@ -32,7 +31,7 @@ class BillRepositoryImpTest {
             History("2022-02-24", 313.08, true),
         )
         val bills = listOf(Bill(1, "Electricity Bill", "electricity.svg", history))
-        `when`(apiService.getCreditCards()).thenReturn(Response.success(bills))
+        Mockito.`when`(apiService.getCreditCards()).thenReturn(Response.success(bills))
     }
 
     @Test
@@ -62,7 +61,7 @@ class BillRepositoryImpTest {
 
     @Test(expected = Exception::class)
     fun `getBills throws exception on API failure`() = runTest {
-        `when`(apiService.getCreditCards()).thenThrow(RuntimeException("Network Error"))
+        Mockito.`when`(apiService.getCreditCards()).thenThrow(RuntimeException("Network Error"))
 
         billRepository.getBills().toList()
     }

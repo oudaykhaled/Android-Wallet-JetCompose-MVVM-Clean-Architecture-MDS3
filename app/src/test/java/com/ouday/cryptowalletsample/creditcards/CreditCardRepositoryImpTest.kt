@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.creditcards
 
 import com.ouday.cryptowalletsample.creditcards.data.model.CreditCardInfo
 import com.ouday.cryptowalletsample.creditcards.data.remote.CreditCardApiService
@@ -8,8 +8,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
 
@@ -23,7 +22,7 @@ class CreditCardRepositoryImpTest {
     @Before
     fun setUp() = runTest {
         MockitoAnnotations.openMocks(this)
-        creditCardApiService = mock(CreditCardApiService::class.java)
+        creditCardApiService = Mockito.mock(CreditCardApiService::class.java)
         creditCardRepository = CreditCardRepositoryImp(creditCardApiService)
 
         val creditCards = listOf(
@@ -31,7 +30,8 @@ class CreditCardRepositoryImpTest {
             CreditCardInfo("MASTERCARD", "**** **** **** 1234", "15th Nov", "$3,500.00", "ON TIME"),
             CreditCardInfo("AMEX", "**** **** **** 5678", "20th Dec", "$7,250.99", "LATE")
         )
-        `when`(creditCardApiService.getCreditCards()).thenReturn(Response.success(creditCards))
+        Mockito.`when`(creditCardApiService.getCreditCards())
+            .thenReturn(Response.success(creditCards))
     }
 
     @Test
@@ -47,7 +47,8 @@ class CreditCardRepositoryImpTest {
 
     @Test(expected = Exception::class)
     fun `getCreditCards throws exception on API failure`() = runTest {
-        `when`(creditCardApiService.getCreditCards()).thenThrow(RuntimeException("Network Error"))
+        Mockito.`when`(creditCardApiService.getCreditCards())
+            .thenThrow(RuntimeException("Network Error"))
 
         creditCardRepository.getCreditCards().toList()
     }

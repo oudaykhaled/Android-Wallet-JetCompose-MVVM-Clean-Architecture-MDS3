@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.bills
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.ouday.cryptowalletsample.bills.data.model.Bill
@@ -6,10 +6,9 @@ import com.ouday.cryptowalletsample.bills.data.model.History
 import com.ouday.cryptowalletsample.bills.domain.usecase.BillUseCase
 import com.ouday.cryptowalletsample.bills.ui.viewmodel.BillViewModel
 import com.ouday.cryptowalletsample.common.FlowState
-import junit.framework.TestCase.assertTrue
+import junit.framework.TestCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.take
@@ -26,7 +25,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
@@ -56,7 +55,7 @@ class BillViewModelTest {
             History("2022-02-24", 313.08, true),
         )
         val bills = listOf(Bill(1, "Electricity Bill", "electricity.svg", history))
-        `when`(billUseCase.getBills()).thenReturn(flowOf(bills))
+        Mockito.`when`(billUseCase.getBills()).thenReturn(flowOf(bills))
 
         val job = launch {
             viewModel.triggerFetchBills()
@@ -81,7 +80,7 @@ class BillViewModelTest {
             throw Exception(errorMessage)
         }
 
-        `when`(billUseCase.getBills()).thenReturn(errorFlow)
+        Mockito.`when`(billUseCase.getBills()).thenReturn(errorFlow)
 
         val job = launch {
             viewModel.triggerFetchBills()
@@ -91,8 +90,11 @@ class BillViewModelTest {
         advanceUntilIdle()
         advanceTimeBy(1000)
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Error", states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage)
+        TestCase.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        TestCase.assertTrue(
+            "Second state should be Error",
+            states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage
+        )
         job.cancel()
     }
 

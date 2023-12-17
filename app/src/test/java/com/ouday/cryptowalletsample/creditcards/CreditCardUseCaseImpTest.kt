@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.creditcards
 
 import com.ouday.cryptowalletsample.creditcards.data.model.CreditCardInfo
 import com.ouday.cryptowalletsample.creditcards.data.repository.CreditCardRepository
@@ -9,7 +9,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class CreditCardUseCaseImpTest {
@@ -27,8 +27,9 @@ class CreditCardUseCaseImpTest {
 
     @Test
     fun `getCreditCards returns list of credit cards`() = runTest {
-        val creditCards = listOf(CreditCardInfo("VISA", "**** **** **** 1234", "10/22", "$1,000", "Paid"))
-        `when`(creditCardRepository.getCreditCards()).thenReturn(flowOf(creditCards))
+        val creditCards =
+            listOf(CreditCardInfo("VISA", "**** **** **** 1234", "10/22", "$1,000", "Paid"))
+        Mockito.`when`(creditCardRepository.getCreditCards()).thenReturn(flowOf(creditCards))
 
         val result = creditCardUseCase.getCreditCards().toList()
         assert(result[0] == creditCards)

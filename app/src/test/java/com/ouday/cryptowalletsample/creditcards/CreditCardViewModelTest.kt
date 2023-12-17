@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.creditcards
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.ouday.cryptowalletsample.common.FlowState
@@ -17,12 +17,12 @@ import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import org.junit.Assert.assertTrue
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
@@ -56,7 +56,7 @@ class CreditCardViewModelTest {
                 "Paid"
             )
         )
-        `when`(creditCardUseCase.getCreditCards()).thenReturn(flowOf(creditCards))
+        Mockito.`when`(creditCardUseCase.getCreditCards()).thenReturn(flowOf(creditCards))
 
         val job = launch {
             viewModel.triggerFetchCreditCards()
@@ -64,8 +64,11 @@ class CreditCardViewModelTest {
 
         val states = viewModel.creditCards.take(2).toList()
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Success", states[1] is FlowState.Success && (states[1] as FlowState.Success).data == creditCards)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Success",
+            states[1] is FlowState.Success && (states[1] as FlowState.Success).data == creditCards
+        )
         job.cancel()
     }
 
@@ -76,7 +79,7 @@ class CreditCardViewModelTest {
             throw Exception(errorMessage)
         }
 
-        `when`(creditCardUseCase.getCreditCards()).thenReturn(errorFlow)
+        Mockito.`when`(creditCardUseCase.getCreditCards()).thenReturn(errorFlow)
 
         val job = launch {
             viewModel.triggerFetchCreditCards()
@@ -86,8 +89,11 @@ class CreditCardViewModelTest {
         advanceUntilIdle()
         advanceTimeBy(1000)
 
-        assertTrue("First state should be Loading", states[0] is FlowState.Loading)
-        assertTrue("Second state should be Error", states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage)
+        Assert.assertTrue("First state should be Loading", states[0] is FlowState.Loading)
+        Assert.assertTrue(
+            "Second state should be Error",
+            states[1] is FlowState.Error && (states[1] as FlowState.Error).message == errorMessage
+        )
         job.cancel()
     }
 }

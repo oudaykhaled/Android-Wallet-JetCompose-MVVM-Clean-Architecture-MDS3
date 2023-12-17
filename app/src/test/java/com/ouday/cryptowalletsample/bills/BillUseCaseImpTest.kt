@@ -1,4 +1,4 @@
-package com.ouday.cryptowalletsample
+package com.ouday.cryptowalletsample.bills
 
 import com.ouday.cryptowalletsample.bills.data.model.Bill
 import com.ouday.cryptowalletsample.bills.data.repository.BillRepository
@@ -9,7 +9,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 class BillUseCaseImpTest {
@@ -28,7 +28,7 @@ class BillUseCaseImpTest {
     @Test
     fun `getBills returns list of bills`() = runTest {
         val bills = listOf(Bill(1, "Electricity", "icon_url", emptyList()))
-        `when`(billRepository.getBills()).thenReturn(flowOf(bills))
+        Mockito.`when`(billRepository.getBills()).thenReturn(flowOf(bills))
 
         val result = billUseCase.getBills().toList()
         assert(result[0] == bills)
